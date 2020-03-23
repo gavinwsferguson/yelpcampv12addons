@@ -91,7 +91,7 @@ router.put("/:review_id", middleware.checkReviewOwnership, function (req, res) {
             //save changes
             campground.save();
             req.flash("success", "Successfully updated review");
-            res.redirect("/campground/" + campground.slug);
+            res.redirect("/campgrounds/" + campground.slug);
         });
     });
 });
@@ -103,7 +103,7 @@ router.delete("/:reviews_id", middleware.checkReviewOwnership, function (req, re
             req.flash("error", err.message);
             return res.redirect("back");
         } else {
-            Campground.findOne({ slug: req.params.slug }, { $pull: { reviews: req.params.review_id } }, { new: true }).populate("reviews").exec(function (err, foundCampground) {
+            Campground.findOneAndUpdate({ slug: req.params.slug }, { $pull: { reviews: req.params.review_id } }, { new: true }).populate("reviews").exec(function (err, foundCampground) {
                 if (err) {
                     req.flash("error", err.message);
                     return res.redirect("back");

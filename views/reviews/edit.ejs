@@ -3,7 +3,7 @@
 <div class="row">
     <h1>Change Review:</h1>
     <div>
-        <form action="/campgrounds/<%= campground.slug %>/reviews/<%= review._id %>?_method=PUT" method="POST">
+        <form action="/campgrounds/<%= campground_slug %>/reviews/<%= review._id %>?_method=PUT" method="POST">
             <div class="form-group">
                 <label for="rating">Leave a rating:</label>
                 <fieldset class="starability-basic form-group" id="rating">
@@ -48,7 +48,7 @@
             </div>
 
         </form>
-        <a href="/campgrounds/<%= campground.slug %>">Go Back</a>
+        <a href="/campgrounds/<%= campground_slug %>">Go Back</a>
     </div>
 </div>
 
