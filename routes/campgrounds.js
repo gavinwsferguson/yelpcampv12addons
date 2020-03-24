@@ -50,7 +50,7 @@ router.get("/new", middleware.isLoggedIn, function (req, res) {
 // SHOW - shows more info about one campground
 router.get("/:slug", function (req, res) {                                 // /:slug replaces /:id, can now find campground based on custom field (slug)
     // find the campground with provided ID, populate comments array
-    Campground.findOne({ slug: req.params.slug }).populate("comments likes reviews").exec(function (err, foundCampground) {
+    Campground.findOne({ slug: req.params.slug }).populate("comments").populate("likes").populate({path: "reviews", options: { sort: {createdAt: -1}}}).exec(function (err, foundCampground) {
         if (err) {
             console.log(err);
         } else {

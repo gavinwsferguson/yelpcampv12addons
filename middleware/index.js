@@ -55,6 +55,7 @@ middlewareObj.checkCommentOwnership = function (req, res, next) {
 // checkReviewOwnership function to authorise whether the user is allowed to edit/update/destroy review
 middlewareObj.checkReviewOwnership = function (req, res, next) {
     if (req.isAuthenticated()) {
+        // find the review with provided ID
         Review.findById(req.params.review_id, function (err, foundReview) {
             if (err) {
                 req.flash("error", "Review not found");
@@ -74,6 +75,31 @@ middlewareObj.checkReviewOwnership = function (req, res, next) {
         res.redirect("back");
     }
 };
+
+// // checkReviewOwnership function to authorise whether the user is allowed to edit/update/destroy review
+// middlewareObj.checkReviewOwnership = function (req, res, next) {
+//     if (req.isAuthenticated()) {
+//         Review.findById(req.params.review_id, function (err, foundReview) {
+//             if (err || !foundReview) {
+//                 console.log("ERROR 4");
+//                 req.flash("error", "Review not found");
+//                 console.log(err);
+//                 res.redirect("back");
+//             } else {
+//                 // does user own review?
+//                 if (foundReview.author.id.equals(req.user._id)) {
+//                     next();
+//                 } else {
+//                     req.flash("error", "You don't have permission to do that");
+//                     res.redirect("back");
+//                 }
+//             }
+//         });
+//     } else {
+//         req.flash("error", "You need to be logged in to do that");
+//         res.redirect("back");
+//     }
+// };
 
 // checkReviewExistence function to authenticate whether a review already exists for user
 middlewareObj.checkReviewExistence = function (req, res, next) {

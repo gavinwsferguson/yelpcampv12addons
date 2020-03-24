@@ -97,17 +97,23 @@ router.put("/:review_id", middleware.checkReviewOwnership, function (req, res) {
 });
 
 // Reviews Delete
-router.delete("/:reviews_id", middleware.checkReviewOwnership, function (req, res) {
+router.delete("/:reviews_id", function (req, res) {
+    console.log("first log");
     Review.findByIdAndRemove(req.params.review_id, function (err) {
+        console.log("second log");
         if (err) {
+            console.log("third log");
             req.flash("error", err.message);
             return res.redirect("back");
         } else {
+            console.log("fourth log");
             Campground.findOneAndUpdate({ slug: req.params.slug }, { $pull: { reviews: req.params.review_id } }, { new: true }).populate("reviews").exec(function (err, foundCampground) {
                 if (err) {
+                    console.log("fifth log");
                     req.flash("error", err.message);
                     return res.redirect("back");
                 } else {
+                    console.log("sixth log");
                     //recalculate campground average
                     foundCampground.rating = calculateAverage(foundCampground.reviews);
                     //save changes
