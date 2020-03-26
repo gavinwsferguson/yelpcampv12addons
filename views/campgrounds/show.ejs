@@ -58,7 +58,12 @@
         </div>
 
         <!-- REVIEW SECTION START -->
-        <div class="thumbnail">
+        <div class="well">
+            <div class="text-right">
+                <a class="btn btn-success pull-right <% if (currentUser && campground.reviews.some(function (review) {return review.author.id.equals(currentUser._id)})) { %> disabled <% } %>"
+                    href="/campgrounds/<%= campground.slug %>/reviews/new">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Write a New Review</a>
+            </div>
             <div class="caption-full">
                 <% if (campground.rating === 0) { %>
                 <h5>
@@ -114,10 +119,6 @@
                     </h4>
                 </div>
                 <% } %>
-                <div>
-                    <a class="btn btn-primary btn-lg <% if (currentUser && campground.reviews.some(function (review) {return review.author.id.equals(currentUser._id)})) { %> disabled <% } %>"
-                        href="/campgrounds/<%= campground.slug %>/reviews/new">Write a New Review</a>
-                </div>
             </div>
         </div>
 
