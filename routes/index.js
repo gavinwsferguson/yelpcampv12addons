@@ -1,7 +1,8 @@
 const express = require("express"),
     router = express.Router(),
     passport = require("passport"),
-    User = require("../models/user");
+    User = require("../models/user"),
+    Campground = require("../models/campground");
 
 // root route
 router.get("/", function (req, res) {
@@ -73,7 +74,13 @@ router.get("/users/:user_id", function (req, res) {
             req.flash("error", "Something went wrong");
             res.redirect("back");
         } else {
-            res.render("users/show", { user: foundUser });
+            Campground.find().where("author.id").equals(foundUser._id).exec(function(err, campgrounds) {
+                if (err) {
+                    req.flash("error", "Something went wrong");
+                    res.redirect("/");
+                }
+                res.render("users/show", { user: foundUser, campgrounds: campgrounds });
+            });
         }
     });
 });
