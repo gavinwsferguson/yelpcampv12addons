@@ -10,6 +10,9 @@ const express       = require("express"),
       User          = require("./models/user"),
       seedDB        = require("./seeds");
 
+// configure dotenv
+require("dotenv").config();
+
 // requiring routes
 const campgroundRoutes = require("./routes/campgrounds"),
       commentRoutes    = require("./routes/comments"),
