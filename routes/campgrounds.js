@@ -10,20 +10,46 @@ router.get("/", function (req, res) {
     var perPage = 8;
     var pageQuery = parseInt(req.query.page);
     var pageNumber = pageQuery ? pageQuery : 1;
-    // get all campgrounds from DB
-    Campground.find({}).skip((perPage * pageNumber) - perPage).limit(perPage).exec(function (err, campgrounds) {
-        Campground.count().exec(function (err, count) {
-            if (err) {
-                console.log(err);
-            } else {
-                res.render("campgrounds/index", {
-                    campgrounds: campgrounds,
-                    current: pageNumber,
-                    pages: Math.ceil(count / perPage)
-                });
-            }
+    var noMatch = null;
+    if (req.query.search) {
+        const regex = new RegExp(escapeRegex(req.query.search), "gi");
+        Campground.find({ name: regex }).skip((perPage * pageNumber) - perPage).limit(perPage).exec(function (err, campgrounds) {
+            Campground.count({ name: regex }).exec(function (err, count) {
+                if (err) {
+                    console.log(err);
+                    res.redirect("back");
+                } else {
+                    if (campgrounds.length < 1) {
+                        noMatch = "No campgrounds match that query, please try again.";
+                    }
+                    res.render("campgrounds/index", {
+                        campgrounds: campgrounds,
+                        current: pageNumber,
+                        pages: Math.ceil(count / perPage),
+                        noMatch: noMatch,
+                        search: req.query.search
+                    });
+                }
+            });
         });
-    });
+    } else {
+        // get all campgrounds from DB
+        Campground.find({}).skip((perPage * pageNumber) - perPage).limit(perPage).exec(function (err, campgrounds) {
+            Campground.count().exec(function (err, count) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    res.render("campgrounds/index", {
+                        campgrounds: campgrounds,
+                        current: pageNumber,
+                        pages: Math.ceil(count / perPage),
+                        noMatch: noMatch,
+                        search: false
+                    });
+                }
+            });
+        });
+    }
 });
 
 // CREATE - add new campground to DB -- POST route - same url (/campgrounds)
@@ -163,5 +189,9 @@ router.delete("/:slug", middleware.checkCampgroundOwnership, function (req, res)
         }
     });
 });
+
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 
 module.exports = router;
