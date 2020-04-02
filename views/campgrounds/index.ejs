@@ -18,37 +18,37 @@
     </div>
 </header>
 
-<div class="row text-center" style="display:flex; flex-wrap: wrap;">
+<div class="row text-center">
     <div class="col-md-12">
         <% if(noMatch !== undefined) { %>
             <h3><%= noMatch %></h3>
         <% } %>
     </div>
-    <% campgrounds.forEach(function(campground){ %>
-    <div class="col-md-3 col-sm-6">
-        <div class="thumbnail">
-            <img src="<%= campground.image %>" alt="">
-            <div class="caption">
-                <h4><%= campground.name %></h4>
-                <% if (campground.rating === 0) { %>
-                    <em>No reviews yet.</em>
-                <% } else { %>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star <% if (campground.rating > 1.5) {  %> checked <% } %>"></span>
-                    <span class="fa fa-star <% if (campground.rating > 2.5) {  %> checked <% } %>"></span>
-                    <span class="fa fa-star <% if (campground.rating > 3.5) {  %> checked <% } %>"></span>
-                    <span class="fa fa-star <% if (campground.rating > 4.5) {  %> checked <% } %>"></span>
-                <% } %>
-                <div>
-                    <span class="badge label-primary"><i class="fas fa-thumbs-up"></i> <%= campground.likes.length %></span>
+    <div class="row text-center" id="campground-grid">
+        <% campgrounds.forEach(function(campground){ %>
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <div class="card">
+                  <img class="card-img-top" src="<%= campground.image %>" alt="<%= campground.name %>">
+                  <div class="card-body">
+                    <h5 class="card-title"><%= campground.name %></h5>
+                    <% if (campground.rating === 0) { %>
+                        <em>No reviews yet.</em>
+                    <% } else { %>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star <% if (campground.rating > 1.5) {  %> checked <% } %>"></span>
+                        <span class="fa fa-star <% if (campground.rating > 2.5) {  %> checked <% } %>"></span>
+                        <span class="fa fa-star <% if (campground.rating > 3.5) {  %> checked <% } %>"></span>
+                        <span class="fa fa-star <% if (campground.rating > 4.5) {  %> checked <% } %>"></span>
+                    <% } %>
+                    <div>
+                        <span class="badge label-primary"><i class="fas fa-thumbs-up"></i> <%= campground.likes.length %></span>
+                    </div>
+                    <a href="/campgrounds/<%= campground.slug %>" class="btn btn-primary">More Info</a>
+                  </div>
                 </div>
             </div>
-            <p>
-                <a href="/campgrounds/<%= campground.slug %>" class="btn btn-primary">More Info</a>
-            </p>
-        </div>
+        <% }); %>
     </div>
-    <% }); %>
 </div>
 
 <div class="row text-center">
