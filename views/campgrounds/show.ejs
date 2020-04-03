@@ -1,29 +1,22 @@
 <%- include("../partials/header") %>
 
 <div class="row">
-    <div class="col-md-3">
-        <p class="lead">YelpCamp</p>
-        <div class="list-group">
-            <li class="list-group-item active">Info 1</li>
-            <li class="list-group-item">Info 2</li>
-            <li class="list-group-item">Info 3</li>
-        </div>
-    </div>
+    <!-- <div class="col-md-3">
+        <div id="map"></div>
+    </div> -->
     <div class="col-md-9">
-        <div class="thumbnail">
-            <img class="img-responsive" src="<%= campground.image %>" alt="">
-            <div class="caption">
-                <h4 class="pull-right">£<%= campground.price %> / night</h4>
-                <h4>
-                    <a href=""><%= campground.name %></a>
-                </h4>
-                <div class="pull-right">
+        <div class="card">
+            <img class="card-img-top" src="<%= campground.image %>" alt="<%= campground.name %>">
+            <div class="card-body">
+                <h4 class="float-right">$<%= campground.price %> / night</h4>
+                <h4 class="card-title"><a><%= campground.name %></a></h4>
+                <div class="float-right">
                     <button type="button" class="btn btn-xs btn-primary" data-toggle="modal"
                         data-target="#campgroundLikes">
-                        <span>Total likes: <i class="fas fa-thumbs-up"></i> <%= campground.likes.length %></span>
+                        <span>Total likes: <i class="fas fa-thumbs-up"></i><%= campground.likes.length %></span>
                     </button>
                 </div>
-                <div style="padding-bottom: 10px;">
+                <div>
                     <form action="/campgrounds/<%= campground.slug %>/like" method="POST">
                         <div class="btn-group">
                             <% if (currentUser && campground.likes.some(function (like) {
@@ -45,15 +38,16 @@
                 </div>
                 <p><%= campground.description %></p>
                 <p>
-                    <em>Submitted by: <a href="/users/<%= campground.author.id %>"><%= campground.author.username %></a>, <%= moment(campground.createdAt).fromNow() %></em>
+                    <em>Submitted by: <a
+                            href="/users/<%= campground.author.id %>"><%= campground.author.username %></a>,
+                        <%= moment(campground.createdAt).fromNow() %></em>
                 </p>
                 <% if(currentUser && campground.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin) { %>
-                            <a class="btn btn-warning" href="/campgrounds/<%= campground.slug %>/edit">Edit</a>
-                            <form class="delete-form" action="/campgrounds/<%= campground.slug %>?_method=DELETE"
-                                method="POST">
-                                <button class="btn btn-danger">Delete</button>
-                            </form>
-                            <% } %>
+                <a class="btn btn-warning" href="/campgrounds/<%= campground.slug %>/edit">Edit</a>
+                <form class="delete-form" action="/campgrounds/<%= campground.slug %>?_method=DELETE" method="POST">
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+                <% } %>
             </div>
         </div>
 
