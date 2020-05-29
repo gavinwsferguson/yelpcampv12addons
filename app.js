@@ -59,7 +59,7 @@ app.use("/campgrounds/:slug/comments", commentRoutes);
 app.use("/campgrounds/:slug/reviews", reviewRoutes);
 
 // Tell Express to listen for requests (starts server)
-// listen on PORT 3000
-app.listen(3000, function () {
+// listen on dedicated PORT, if none is provided use PORT 3000
+app.listen(process.env.PORT || 3000, process.env.IP, function () {
     console.log("YelpCamp server has started!  Press Ctrl^C to exit.");
 });
