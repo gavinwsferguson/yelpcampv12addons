@@ -19,10 +19,8 @@ const campgroundRoutes = require("./routes/campgrounds"),
       reviewRoutes     = require("./routes/review"),
       indexRoutes      = require("./routes/index");
 
-console.log(process.env.DATABASE_URL);
 // connect to the database
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, useUnifiedTopology: true });
-//mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
