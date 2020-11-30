@@ -27,3 +27,4 @@
    * Error catching and validation to make the website user-friendly and more functional, aided in part through use of flash messages that provide alerts to the user based on their interaction with the app.
    * A 'like button' which users can click to 'like' a Campground. Another button displays a list of all users who have liked the Campground.
    * Use of Clean URLs (aka RESTful URLs) which are considered more intuitive/user-friendly - semantic URLs instead of Campground IDs.
+   * Use of Moment.js to display the time since a Campground post/comment/review was made.
