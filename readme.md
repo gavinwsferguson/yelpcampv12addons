@@ -1,189 +1,29 @@
-# Yelp Camp
+# A full stack application built as part of Colt Steele's Web Developer Bootcamp course.
 
-# ===== V1 =====
-# - Initial Routes
-    * Add landing page
-    * Add Campgrounds page that lists all campgrounds
+## Built on a MongoDB/Express/Node stack, utilizing RESTful architecture, Bootstrap 4 for styling, and Passport.js for authentication, among other libraries and packages for miscellaneous features.
 
-    Each Campground has:
-        * Name
-        * Image
+### Features:
 
-# - Layout and Basic Styling
-    * Create our header and footer partials
-    * Add in Bootstrap
+* Functionalities of Campground posts, comments, reviews, and user profiles:
+   * CRUD - Users can Create, View, Edit/Update and Delete campground posts, comments, and reviews.
+   * Users can create a profile which includes more information on the user (full name, avatar, email, phone, join date), a list of their campground posts, and the option to edit their profile or delete their account.
 
-# - Creating New Campgrounds
-    * Setup new campground POST route
-    * Add in body-parser
-    * Setup route to show form
-    * Add basic unstyled form
+* Authentication:
+   * Users can sign up by creating an account with a username and password.
+   * Users can log in using their unique username and password combination.
+   * Admins can log in with an admin username, password, and admin code.
+   * Passport.js is utilize as the authentication middleware of choice for Node.js.
 
-# - Style the Campgrounds page
-    * Add a better header/title
-    * Make campgrounds display in a grid
+* Authorization:
+   * Users cannot create new Campground posts or view user profiles without being authenticated/signed in.
+   * Users cannot edit/update or delete existing Campground posts/comments/reviews that belong to other users.
+   * Admins have the ability to manage all posts/comments/reviews regardless if they own them or not.
 
-# - Style the Navbar and Form
-    * Add a navbar to all templates
-    * Style the new campground form
-
-# ===== V2 =====
-# - Add Mongoose
-    * Install and configure Mongoose
-    * Set up campground model
-    * Use campground model inside routes
-
-# - Show Page
-    * Review the RESTful routes we've seen so far
-        * INDEX  - /campgrounds
-        * NEW    - /campgrounds/new
-        * CREATE - /campgrounds
-        * SHOW   - /campgrounds/id
-    * Add description to our campground model
-    * Show db.collection.drop()
-        * Removes a collection from the DB.
-    * Add a show route/template
-
-RESTFUL ROUTES
-
-name     url        verb     description
-===============================================
-INDEX   /dogs       GET     Display a list of all dogs
-NEW     /dogs       GET     Display form to make new dog
-CREATE  /dogs       POST    Add new dog to DB
-SHOW    /dogs/:id   GET     Shows info about one dog
-
-# ===== V3 =====
-# - Refactor Mongoose code
-    * Create a modules directory
-    * Use modules.export
-    * Require everything correctly
-
-# - Add Seeds file
-    * Add a seeds.js file
-    * Run the seeds file every time the server starts
-
-# - Add the Comment model
-    * Make our errors go away
-    * Display comments on campground show page
-
-# ===== V4 =====
-# - Comment New/Create
-    * Discuss nested routes
-        * NEW - campgrounds/:id/comments/new - GET
-        * CREATE - campgrounds/:id/comments - POST
-    * Add the comment new and create routes
-    * Add the new comment form
-
-# ===== V5 =====
-# - Style Show Page
-    * Add sidebar to show page
-    * Improve comments UI
-    
-# - Finish Styling Show Page
-    * Add public directory
-    * Add custom stylesheet
-
-# ===== V6 =====
-# - Authentication (if someone is who they say they are)
-# - Auth Part 1 - Add User Model
-    * Install all packages needed for auth
-    * Define User model
-
-# - Auth Part 2 - Register
-    * Configure Passport
-    * Add register routes
-    * Add register template
-
-# - Auth Part 3 - Login
-    * Add login routes
-    * Add login template
-
-# - Auth Part 4 - Logout
-    * Add logout route
-    * Prevent user from adding a comment if not signed in
-    * Add links to navbar
-    * Show/hide auth links correctly
-
-# - Auth Part 5 - Show/Hide Links
-    * Show/hide auth links in navbar correctly
-
-# ===== V7 =====
-# - Refactor the routes
-    * Use Express router to reorganise routes
-
-# ===== V8 =====
-# - Users & Comments
-    * Associate users and comments
-    * Save author's name to a comment automatically
-
-# ===== V9 =====
-# - Users & Campgrounds
-    * Associate users and campgrounds
-    * Prevent an unauthenticated user from creating a campground
-    * Save username & id to newly created campground
-
-# ===== V10 =====
-# - Editing Campgrounds
-    * Add Method-Override
-    * Add edit route for campgrounds
-    * Add link to edit page
-    * Add update route
-    * Fix $set problem
-
-# - Destroying Campgrounds
-    * Add destroy route
-    * Add delete button
-
-# - Authorisation Part 1 - Campgrounds (if someone is allowed to do something/permissions)
-    * User can only edit their own campgrounds
-    * User can only delete their own campgrounds
-    * Hide/show edit and delete buttons
-
-# - Editing Comments
-    * Add edit route for comments
-    * Add edit button
-    * Add update route
-
-# - Destroying Comments
-    * Add destroy route
-    * Add delete button
-
-# - Authorisation Part 2 - Comments
-    * User can only edit their own comments
-    * User can only delete their own comments
-    * Hide/show edit and delete buttons
-    * Refactor middleware
-
-# ===== V11 =====
-# - Adding in Flash
-    * Demo working version
-    * Install and configure connect-flash
-    * Add Bootstrap alerts to header
-
-# ===== V12 =====
-# - UI IMPROVEMENTS
-# - Style landing page
-    * Add background image slider on the landing page
-    * Make use of CSS animations to fade-in & fade-out
-
-# - Dynamic price feature
-    * Update campground model with cost property
-    * Update campground new/edit form and add cost input field
-    * Update campground create and update routes
-    * Update campground show page to display cost
-
-# - Style login & sign up forms
-    * Use Bootstrap to style the login and signup forms
-    * Update the nav-bar menu
-        * Add conditional active class to menu list items
-        * Add collapsable hamburger menu
-        * Make site responsive for mobile
-    * Fix registration flash message bug (previously fixed)
-
-# ===== V12 Addons =====
-# - MomentJS - "time since.." feature
-    * Install momentjs
-    * Require moment and add to app.locals
-    * Update campground and comment models
-    * Use moment in campground show page
+* Miscellaneous features:
+   * Users can search for a campground by name.
+   * Responsive web design including support for smaller screen sizes (tablets/mobiles).
+   * Embedded comments and reviews on each Campground's show page.
+   * RESTful routing including bringing the user back to the Campground show page they were on after they submit a comment or review.
+   * Error catching and validation to make the website user-friendly and more functional, aided in part through use of flash messages that provide alerts to the user based on their interaction with the app.
+   * A 'like button' which users can click to 'like' a Campground. Another button displays a list of all users who have liked the Campground.
+   * Use of Clean URLs (aka RESTful URLs) which are considered more intuitive/user-friendly - semantic URLs instead of Campground IDs.
